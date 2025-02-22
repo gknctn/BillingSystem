@@ -32,6 +32,17 @@ public class HomeController : Controller
         _productService.Add(p);
         return RedirectToAction("index");
     }
+    public IActionResult UpdateProductPage(int id)
+    {
+        Product p = _productService.GetById(id);
+        return View(p);
+    }
+    [HttpPost]
+    public IActionResult UpdateProductPage(Product p)
+    {
+        _productService.Update(p);
+        return RedirectToAction("index");
+    }
 
     public IActionResult Privacy()
     {

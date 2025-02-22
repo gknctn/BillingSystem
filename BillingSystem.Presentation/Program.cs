@@ -4,10 +4,14 @@ using BillingSystem.DataAccessLayer.Abstract;
 using BillingSystem.DataAccessLayer.EntityFramework;
 using BillingSystem.DataAccessLayer.Repository;
 using BillingSystem.EntityLayer.Concrete;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Set the culture to ensure correct decimal formatting
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 
 // Add services to the container.
