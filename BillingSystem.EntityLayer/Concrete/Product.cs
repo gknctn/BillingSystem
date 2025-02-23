@@ -12,8 +12,17 @@ namespace BillingSystem.EntityLayer.Concrete
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        
+
         [DataType(DataType.Currency)]
         public decimal ProductPrice { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
+        // ürünün kategorisi
+        public Category Category { get; set; }
+
+        // ürünün kategori id'si
+        public int CategoryId { get; set; }
     }
 }

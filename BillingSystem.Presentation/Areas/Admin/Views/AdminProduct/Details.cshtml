@@ -1,0 +1,42 @@
+﻿@model BillingSystem.EntityLayer.Concrete.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow mt-4">
+                <div class="card-header bg-warning text-white">
+                    <h2 class="card-title text-center">@ViewData["Title"]</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Product Name -->
+                    <div class="mb-3">
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.ProductName)</label>
+                        <p class="form-control-plaintext">@Html.DisplayFor(model => model.ProductName)</p>
+                    </div>
+
+                    <!-- Product Price -->
+                    <div class="mb-3">
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.ProductPrice)</label>
+                        <p class="form-control-plaintext">@Html.DisplayFor(model => model.ProductPrice)</p>
+                    </div>
+
+                    <!-- Product Description -->
+                    <div class="mb-3">
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.ProductDescription)</label>
+                        <p class="form-control-plaintext">@Html.DisplayFor(model => model.ProductDescription)</p>
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer text-center">
+                    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+                    <a class="btn btn-secondary ml-2" asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

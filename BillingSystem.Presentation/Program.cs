@@ -2,8 +2,6 @@ using BillingSystem.BusinessLayer.Abstract;
 using BillingSystem.BusinessLayer.Concrete;
 using BillingSystem.DataAccessLayer.Abstract;
 using BillingSystem.DataAccessLayer.EntityFramework;
-using BillingSystem.DataAccessLayer.Repository;
-using BillingSystem.EntityLayer.Concrete;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,19 +11,18 @@ var cultureInfo = new CultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Register IProductService and its concrete implementation
 builder.Services.AddScoped<IProductService, ProductManager>(); // IProductService'i ProductManager ile iliþkilendiriyoruz
 builder.Services.AddScoped<IUserService, UserManager>(); // IUserService'i UserManager ile iliþkilendiriyoruz
+builder.Services.AddScoped<ICategoryService, CategoryManager>(); // ICategoryService'i CategoryManager ile iliþkilendiriyoruz
 
 // IProductDal ve IProductDal implementasyonlarýný kaydediyoruz.
 builder.Services.AddScoped<IProductDal, EfProductRepository>(); // IProductDal'ý EfProductRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<IUserDal, EfUserRepository>(); // IUserDal'ý EfUserRepository ile iliþkilendiriyoruz.
-
-
+builder.Services.AddScoped<ICategoryDal, EfCategoryRepository>(); // ICategoryDal'ý EfCategoryRepository ile iliþkilendiriyoruz.
 
 var app = builder.Build();
 
@@ -38,26 +35,19 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 
+app.UseRouting();
 app.UseAuthorization();
 
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=AdminHome}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapStaticAssets();
-
-app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapAreaControllerRoute(
-       name: "admin",
-        areaName: "Admin",
-        pattern: "Admin/{controller=AdminHome}/{action=Index}/{id?}");
-
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-
-});
-
 
 app.Run();
