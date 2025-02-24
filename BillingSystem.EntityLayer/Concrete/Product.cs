@@ -20,7 +20,7 @@ namespace BillingSystem.EntityLayer.Concrete
         public DateTime? ModifiedDate { get; set; }
 
         // ürünün kategorisi
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         // ürünün kategori id'si
         public int CategoryId { get; set; }

@@ -33,6 +33,11 @@ namespace BillingSystem.BusinessLayer.Concrete
             return _productDal.GetAll();
         }
 
+        public List<Product> GetAllProductsWithCategory()
+        {
+            return _productDal.GetAllProductsWithCategory();
+        }
+
         public List<Product> GetByCondition(Func<Product, bool> predicate)
         {
             return _productDal.GetByCondition(predicate);

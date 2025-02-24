@@ -12,7 +12,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
 
         public AdminCategoryController(ICategoryService categoryServices)
         {
-           _categoryServices = categoryServices;
+            _categoryServices = categoryServices;
         }
 
         // GET: AdminCategoryController
@@ -25,7 +25,8 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminCategoryController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Category Value = _categoryServices.GetById(id);
+            return View(Value);
         }
 
         // GET: AdminCategoryController/Create
@@ -37,10 +38,12 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // POST: AdminCategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Category c)
         {
             try
             {
+                c.CreatedDate = DateTime.Now;
+                _categoryServices.Add(c);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -52,16 +55,19 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminCategoryController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Category Value = _categoryServices.GetById(id);
+            return View(Value);
         }
 
         // POST: AdminCategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Category c)
         {
             try
             {
+                c.ModifiedDate = DateTime.Now;
+                _categoryServices.Update(c);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -73,16 +79,18 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminCategoryController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Category Value = _categoryServices.GetById(id);
+            return View(Value);
         }
 
         // POST: AdminCategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Category c)
         {
             try
             {
+                _categoryServices.Delete(c);
                 return RedirectToAction(nameof(Index));
             }
             catch

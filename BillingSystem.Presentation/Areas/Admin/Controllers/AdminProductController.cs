@@ -21,7 +21,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminProductController
         public ActionResult Index()
         {
-            List<Product> Values = _productService.GetAll();
+            List<Product> Values = _productService.GetAllProductsWithCategory();
             return View(Values);
         }
 
@@ -51,6 +51,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         {
             try
             {
+                p.CreatedDate = DateTime.Now;
                 _productService.Add(p);
                 return RedirectToAction("Index", "AdminProduct");
             }

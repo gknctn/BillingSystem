@@ -14,6 +14,7 @@ namespace BillingSystem.BusinessLayer.Abstract
         void Update(Product product);
         List<Product> GetAll();
         List<Product> GetByCondition(Func<Product, bool> predicate);
+        List<Product> GetAllProductsWithCategory();
         Product GetById(int id);
     }
 }

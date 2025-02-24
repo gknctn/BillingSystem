@@ -21,7 +21,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        List<Product> values = _productService.GetByCondition(x => x.IsActive.Equals(true));
+        List<Product> values = _productService.GetAllProductsWithCategory().Where(x => x.IsActive).ToList();
         return View(values);
     }
 
