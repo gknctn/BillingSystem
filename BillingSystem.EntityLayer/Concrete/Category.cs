@@ -12,7 +12,7 @@ namespace BillingSystem.EntityLayer.Concrete
         public string CategoryName{ get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         // kategorideki ürünler
         public ICollection<Product> Products { get; set; }

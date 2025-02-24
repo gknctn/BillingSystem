@@ -13,6 +13,7 @@ namespace BillingSystem.BusinessLayer.Abstract
         void Delete(Product product);
         void Update(Product product);
         List<Product> GetAll();
+        List<Product> GetByCondition(Func<Product, bool> predicate);
         Product GetById(int id);
     }
 }

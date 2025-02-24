@@ -1,31 +1,62 @@
-﻿@model List<Product>
+﻿@model IEnumerable<BillingSystem.EntityLayer.Concrete.Product>
+
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Billing System</h1>
-    <p>Products</p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Product Description</th>
-                <th>Price</th>
-                <th>update</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>@product.ProductDescription</td>
-                    <td>@product.ProductPrice</td>
-                    <td><a href="Home/UpdateProductPage/@product.ProductId">Güncelle</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

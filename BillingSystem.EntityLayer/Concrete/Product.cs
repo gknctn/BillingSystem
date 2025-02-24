@@ -17,7 +17,7 @@ namespace BillingSystem.EntityLayer.Concrete
         public decimal ProductPrice { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         // ürünün kategorisi
         public Category Category { get; set; }

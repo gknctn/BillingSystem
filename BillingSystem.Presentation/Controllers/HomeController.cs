@@ -10,38 +10,19 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IProductService _productService;
-    public HomeController(ILogger<HomeController> logger, IProductService productService)
+    private readonly ICategoryService _categoryService;
+
+    public HomeController(ILogger<HomeController> logger, IProductService productService, ICategoryService categoryService)
     {
         _logger = logger;
         _productService = productService;
+        _categoryService = categoryService;
     }
 
     public IActionResult Index()
     {
-        List<Product> values = _productService.GetAll();
+        List<Product> values = _productService.GetByCondition(x => x.IsActive.Equals(true));
         return View(values);
-    }
-    [HttpGet]
-    public IActionResult AddProductPage()
-    {
-        return View();
-    }
-    [HttpPost]
-    public IActionResult AddProductPage(Product p)
-    {
-        _productService.Add(p);
-        return RedirectToAction("index");
-    }
-    public IActionResult UpdateProductPage(int id)
-    {
-        Product p = _productService.GetById(id);
-        return View(p);
-    }
-    [HttpPost]
-    public IActionResult UpdateProductPage(Product p)
-    {
-        _productService.Update(p);
-        return RedirectToAction("index");
     }
 
     public IActionResult Privacy()

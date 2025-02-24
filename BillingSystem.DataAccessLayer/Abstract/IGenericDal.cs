@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillingSystem.EntityLayer.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace BillingSystem.DataAccessLayer.Abstract
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+        List<T> GetByCondition(Func<T, bool> predicate);
     }
 }

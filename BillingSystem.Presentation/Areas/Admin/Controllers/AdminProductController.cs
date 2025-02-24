@@ -2,6 +2,7 @@
 using BillingSystem.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BillingSystem.Presentation.Areas.Admin.Controllers
 {
@@ -9,10 +10,12 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
     public class AdminProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public AdminProductController(IProductService productService)
+        public AdminProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         // GET: AdminProductController
@@ -32,23 +35,24 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminProductController/Create
         public ActionResult Create()
         {
+            var categories = _categoryService.GetAll().ToList();
+            ViewData["Categories"] = categories.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.CategoryName
+            }).ToList();
             return View();
         }
 
         // POST: AdminProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Product p)
         {
             try
             {
-                _productService.Add(new Product
-                {
-                    ProductName = collection["ProductName"],
-                    ProductDescription = collection["ProductDescription"],
-                    ProductPrice = Convert.ToDecimal(collection["ProductPrice"])
-                });
-                return RedirectToAction(nameof(Index));
+                _productService.Add(p);
+                return RedirectToAction("Index", "AdminProduct");
             }
             catch
             {
@@ -59,6 +63,13 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminProductController/Edit/5
         public ActionResult Edit(int id)
         {
+            var categories = _categoryService.GetAll().ToList();
+            ViewData["Categories"] = categories.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.CategoryName
+            }).ToList();
+
             Product Value = _productService.GetById(id);
             return View(Value);
         }
@@ -70,6 +81,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         {
             try
             {
+                p.ModifiedDate = DateTime.Now;
                 _productService.Update(p);
                 return RedirectToAction(nameof(Index));
             }

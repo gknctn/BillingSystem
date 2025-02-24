@@ -1,5 +1,6 @@
 ﻿using BillingSystem.DataAccessLayer.Abstract;
 using BillingSystem.DataAccessLayer.Concrete;
+using BillingSystem.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,12 @@ namespace BillingSystem.DataAccessLayer.Repository
         {
             using var c = new Context();
             return c.Set<T>().ToList();
+        }
+
+        public List<T> GetByCondition(Func<T, bool> predicate)
+        {
+            using var c = new Context();
+            return c.Set<T>().Where(predicate).ToList();
         }
 
         public T GetById(int id)
