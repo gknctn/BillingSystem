@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Table>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New Table</a>
+</p>
+<div class="container">
+    <div class="row">
+        @foreach (Table table in Model)
+        {
+            <div class="card border-bottom-5 border-primary" style="width: 18rem;height:15rem">
+                <div class="card-body">
+                    <h5 class="card-title">@table.TableName</h5>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

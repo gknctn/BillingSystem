@@ -18,11 +18,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductService, ProductManager>(); // IProductService'i ProductManager ile iliþkilendiriyoruz
 builder.Services.AddScoped<IUserService, UserManager>(); // IUserService'i UserManager ile iliþkilendiriyoruz
 builder.Services.AddScoped<ICategoryService, CategoryManager>(); // ICategoryService'i CategoryManager ile iliþkilendiriyoruz
+builder.Services.AddScoped<ITableService, TableManager>();
+builder.Services.AddScoped<IOrderService, OrderManager>();
+
 
 // IProductDal ve IProductDal implementasyonlarýný kaydediyoruz.
 builder.Services.AddScoped<IProductDal, EfProductRepository>(); // IProductDal'ý EfProductRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<IUserDal, EfUserRepository>(); // IUserDal'ý EfUserRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<ICategoryDal, EfCategoryRepository>(); // ICategoryDal'ý EfCategoryRepository ile iliþkilendiriyoruz.
+builder.Services.AddScoped<ITableDal, EfTableRepository>();
+builder.Services.AddScoped<IOrderDal, EfOrderRepository>();
 
 var app = builder.Build();
 

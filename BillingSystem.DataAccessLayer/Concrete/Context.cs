@@ -16,6 +16,8 @@ namespace BillingSystem.DataAccessLayer.Concrete
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Category> categories{ get; set; }
+        public DbSet<Category> Categories{ get; set; }
+        public DbSet<Table> Tables{ get; set; }
+        public DbSet<Order> Orders{ get; set; }
     }
 }
