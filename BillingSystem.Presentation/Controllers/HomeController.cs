@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BillingSystem.Presentation.Models;
 using BillingSystem.BusinessLayer.Abstract;
 using BillingSystem.EntityLayer.Concrete;
+using BillingSystem.Presentation.Models.Dtos;
 
 namespace BillingSystem.Presentation.Controllers;
 
@@ -19,10 +20,22 @@ public class HomeController : Controller
         _categoryService = categoryService;
     }
 
-    public IActionResult Index()
+    CategoryWithProducts categoryWithProducts = new CategoryWithProducts();
+
+    public IActionResult Index([FromRoute] int id = 0)
     {
-        List<Product> values = _productService.GetAllProductsWithCategory().Where(x => x.IsActive).ToList();
-        return View(values);
+        if (id.Equals(0))
+        {
+            categoryWithProducts.Categories = _categoryService.GetAll().Where(x => x.IsActive.Equals(true));
+            categoryWithProducts.Products = _productService.GetAll().Where(y => y.IsActive.Equals(true)).OrderByDescending(x => x.ProductId);
+
+        }
+        else
+        {
+            categoryWithProducts.Categories = _categoryService.GetAll().Where(x => x.IsActive.Equals(true));
+            categoryWithProducts.Products = _productService.GetAll().Where(x => x.CategoryId.Equals(id)).Where(y => y.IsActive.Equals(true)).OrderByDescending(x => x.ProductId);
+        }
+        return View(categoryWithProducts);
     }
 
     public IActionResult Privacy()

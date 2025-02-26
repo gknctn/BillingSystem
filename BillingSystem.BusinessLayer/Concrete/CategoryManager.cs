@@ -33,6 +33,11 @@ namespace BillingSystem.BusinessLayer.Concrete
             return _categoryDal.GetAll();
         }
 
+        public IQueryable<Category> GetAllCategoriesWithProduct(int id)
+        {
+            return _categoryDal.GetAllCategoriesWithProduct(id);
+        }
+
         public Category GetById(int id)
         {
             return _categoryDal.GetById(id);

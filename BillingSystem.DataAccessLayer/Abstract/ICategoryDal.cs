@@ -9,5 +9,6 @@ namespace BillingSystem.DataAccessLayer.Abstract
 {
     public interface ICategoryDal : IGenericDal<Category>
     {
+        IQueryable<Category> GetAllCategoriesWithProduct(int id);
     }
 }

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Category>
+<h3>Categories</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Category category in Model)
+        {
+            <tr>
+                <td>@category.CategoryName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-end mt-3">
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminCategory" asp-action="Index">View all category</a>
+</div>

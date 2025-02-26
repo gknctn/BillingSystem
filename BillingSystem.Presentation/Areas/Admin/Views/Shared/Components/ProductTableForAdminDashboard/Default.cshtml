@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Product>
+<h3>Products</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Product description</th>
+            <th>Product price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in Model)
+        {
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@product.ProductDescription</td>
+                <td>@product.ProductPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-flex justify-content-end mt-3">
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminProduct" asp-action="Index">View all product</a>
+</div>

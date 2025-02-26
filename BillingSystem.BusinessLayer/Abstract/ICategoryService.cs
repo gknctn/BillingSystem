@@ -14,5 +14,7 @@ namespace BillingSystem.BusinessLayer.Abstract
         void Update(Category category);
         List<Category> GetAll();
         Category GetById(int id);
+        IQueryable<Category> GetAllCategoriesWithProduct(int id);
+
     }
 }
