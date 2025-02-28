@@ -20,6 +20,8 @@ builder.Services.AddScoped<IUserService, UserManager>(); // IUserService'i UserM
 builder.Services.AddScoped<ICategoryService, CategoryManager>(); // ICategoryService'i CategoryManager ile iliþkilendiriyoruz
 builder.Services.AddScoped<ITableService, TableManager>();
 builder.Services.AddScoped<IOrderService, OrderManager>();
+builder.Services.AddScoped<IOrderItemService, OrderItemManager>();
+builder.Services.AddScoped<IPaymentService, PaymentManager>();
 
 
 // IProductDal ve IProductDal implementasyonlarýný kaydediyoruz.
@@ -28,6 +30,8 @@ builder.Services.AddScoped<IUserDal, EfUserRepository>(); // IUserDal'ý EfUserRe
 builder.Services.AddScoped<ICategoryDal, EfCategoryRepository>(); // ICategoryDal'ý EfCategoryRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<ITableDal, EfTableRepository>();
 builder.Services.AddScoped<IOrderDal, EfOrderRepository>();
+builder.Services.AddScoped<IOrderItemDal, EfOrderItemRepository>();
+builder.Services.AddScoped<IPaymentDal, EfPaymentRepository>();
 
 var app = builder.Build();
 

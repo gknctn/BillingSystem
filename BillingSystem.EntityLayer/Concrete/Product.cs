@@ -24,5 +24,7 @@ namespace BillingSystem.EntityLayer.Concrete
 
         // ürünün kategori id'si
         public int CategoryId { get; set; }
+        // Navigation Property: Bir ürün birden fazla sipariş kaleminde olabilir.
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

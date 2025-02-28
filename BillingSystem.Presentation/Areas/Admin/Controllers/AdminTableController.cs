@@ -1,6 +1,5 @@
 ﻿using BillingSystem.BusinessLayer.Abstract;
 using BillingSystem.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BillingSystem.Presentation.Areas.Admin.Controllers
@@ -18,7 +17,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // GET: AdminTableController
         public ActionResult Index()
         {
-            List<Table> values =_tableService.GetAll();
+            List<Table> values = _tableService.GetAll();
             return View(values);
         }
 
@@ -37,10 +36,11 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         // POST: AdminTableController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Table table)
         {
             try
             {
+                _tableService.Add(table);
                 return RedirectToAction(nameof(Index));
             }
             catch
