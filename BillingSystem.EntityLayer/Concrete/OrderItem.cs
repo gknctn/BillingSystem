@@ -8,16 +8,15 @@ namespace BillingSystem.EntityLayer.Concrete
 {
     public class OrderItem
     {
-        public int OrderItemId { get; set; } // Sipariş Kalemi ID'si (Primary Key)
-        public int Quantity { get; set; } // Ürün Adedi
-        public decimal UnitPrice { get; set; } // Birim Fiyat
+        public int OrderItemId { get; set; }
+        public int Quantity { get; set; }
 
-        // Foreign Key: Hangi siparişe ait olduğu
+        // Foreign Keys
         public int OrderId { get; set; }
-        public Order Order { get; set; } // Navigation Property: Sipariş
-
-        // Foreign Key: Hangi ürüne ait olduğu
         public int ProductId { get; set; }
-        public Product Product { get; set; } // Navigation Property: Ürün
+
+        // Navigation Properties
+        public Order Order { get; set; }
+        public Product Product { get; set; }
     }
 }

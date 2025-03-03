@@ -1,0 +1,30 @@
+﻿@model List<Table>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Masalar</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Masa Adı</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var table in Model)
+        {
+            <tr>
+                <td>@table.TableName</td>
+                <td>@(table.IsOccupied ? "Dolu" : "Boş")</td>
+                <td>
+                    <a href="@Url.Action("CreateOrder", "AdminOrder", new { tableId = table.TableId })" class="btn btn-primary">Sipariş Al</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
