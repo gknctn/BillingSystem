@@ -8,10 +8,12 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
     public class AdminOrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderItemService _orderItemService;
 
-        public AdminOrderController(IOrderService orderService)
+        public AdminOrderController(IOrderService orderService, IOrderItemService orderItemService)
         {
             _orderService = orderService;
+            _orderItemService = orderItemService;
         }
 
         public IActionResult Index()
@@ -43,6 +45,24 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
                 return View();
             }
             return View();
+        }
+        public IActionResult ListOrder(int id)
+        {
+            Order value = _orderService.GetOrderForTableId(id);
+            if (value == null)
+            {
+                return RedirectToAction("index", "AdminTable");
+            }
+
+            try
+            {
+                List<OrderItem> Values = _orderItemService.GetOrderItemForOrderId(value.OrderId);
+                return View(Values);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("index", "AdminTable");
+            }
         }
 
     }

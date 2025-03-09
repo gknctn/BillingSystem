@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 namespace BillingSystem.DataAccessLayer.Abstract
 {
     public interface IOrderDal : IGenericDal<Order>
-    {}
+    {
+        Order GetOrderForTableId(int id);
+    }
 }

@@ -25,9 +25,14 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         }
         public IActionResult CreateOrderItem(int id)
         {
-            int value = _orderService.GetAll().Where(x => x.TableId.Equals(id)).Select(x => x.OrderId).Last() ;
+            var order = _orderService.GetAll().Where(x => x.TableId.Equals(id)).Select(x => x.OrderId).LastOrDefault();
+            if (order == 0)
+            {
+                // Handle the case when no matching orders are found
+                return NotFound("No orders found for the specified TableId.");
+            }
 
-            ViewBag.OrderId = _orderService.GetById(value).OrderId;
+            ViewBag.OrderId = _orderService.GetById(order).OrderId;
             List<Product> Values = _productService.GetAll().ToList();
             ViewData["Products"] = Values.Select(c => new SelectListItem
             {

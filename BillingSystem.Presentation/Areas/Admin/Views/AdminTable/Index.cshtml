@@ -12,7 +12,7 @@
             <div class="col-3 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">@item.TableName @item.TableId</h2>
+                        <h2 class="text-center">@item.TableName</h2>
                         <h5 class="card-title text-center mb-4">
                             @if (item.IsOccupied.Equals(true))
                             {
@@ -24,7 +24,8 @@
                             }
                         </h5>
                         <div class="text-center fs-5">
-                            <a asp-area="Admin" asp-controller="AdminOrder" asp-action="CreateOrder" asp-route-id="@item.TableId" class="btn btn-primary w-100">Masayı aç</a>
+                            <a asp-area="Admin" asp-controller="AdminOrder" asp-action="ListOrder" asp-route-id="@item.TableId" class="btn btn-primary w-100">Ürünleri gör</a>
+                            <a asp-area="Admin" asp-controller="AdminOrder" asp-action="CreateOrder" asp-route-id="@item.TableId" class="btn btn-primary mt-3 w-100">Masayı aç</a>
                             <a asp-area="Admin" asp-controller="AdminOrderItem" asp-action="CreateOrderItem" asp-route-id="@item.TableId" class="btn btn-primary w-100 mt-3">Masaya ürün ekle</a>
                         </div>
                     </div>

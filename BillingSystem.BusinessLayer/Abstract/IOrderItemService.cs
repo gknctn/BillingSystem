@@ -14,5 +14,7 @@ namespace BillingSystem.BusinessLayer.Abstract
         void Update(OrderItem orderItem);
         List<OrderItem> GetAll();
         OrderItem GetById(int id);
+
+        List<OrderItem> GetOrderItemForOrderId(int id);
     }
 }

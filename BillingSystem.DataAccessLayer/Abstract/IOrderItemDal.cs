@@ -9,5 +9,6 @@ namespace BillingSystem.DataAccessLayer.Abstract
 {
     public interface IOrderItemDal : IGenericDal<OrderItem>
     {
+        List<OrderItem> GetOrderItemForOrderId(int id);
     }
 }

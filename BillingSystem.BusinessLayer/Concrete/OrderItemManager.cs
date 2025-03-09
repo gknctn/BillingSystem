@@ -38,6 +38,11 @@ namespace BillingSystem.BusinessLayer.Concrete
             return _orderItemDal.GetById(id);
         }
 
+        public List<OrderItem> GetOrderItemForOrderId(int id)
+        {
+            return _orderItemDal.GetOrderItemForOrderId(id);
+        }
+
         public void Update(OrderItem orderItem)
         {
             _orderItemDal.Update(orderItem);
