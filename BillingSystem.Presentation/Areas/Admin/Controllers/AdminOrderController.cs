@@ -9,11 +9,12 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IOrderItemService _orderItemService;
-
-        public AdminOrderController(IOrderService orderService, IOrderItemService orderItemService)
+        private readonly ITableService _tableService;
+        public AdminOrderController(IOrderService orderService, IOrderItemService orderItemService, ITableService tableService)
         {
             _orderService = orderService;
             _orderItemService = orderItemService;
+            _tableService = tableService;
         }
 
         public IActionResult Index()
@@ -31,10 +32,15 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         {
             if (order.OrderId is 0)
             {
+                Table TableValue = _tableService.GetById(order.TableId);
+                TableValue.IsOccupied = false;
+                _tableService.Update(TableValue);
                 _orderService.Add(order);
                 return RedirectToAction("Index", "AdminTable");
             }
+
             Order? value = _orderService.GetAll().Where(x => x.TableId.Equals(order.TableId)).Last();
+
             if (value is not null)
             {
                 return RedirectToAction("Index", "AdminTable");
