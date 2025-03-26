@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface IOrderItemService
+    public interface IOrderItemService : IGenericServices<OrderItem>
     {
-        void Add(OrderItem orderItem);
-        void Delete(OrderItem orderItem);
-        void Update(OrderItem orderItem);
-        List<OrderItem> GetAll();
-        OrderItem GetById(int id);
-
         List<OrderItem> GetOrderItemForOrderId(int id);
     }
 }

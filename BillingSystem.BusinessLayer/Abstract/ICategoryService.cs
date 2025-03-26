@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface ICategoryService
+    public interface ICategoryService : IGenericServices<Category>
     {
-        void Add(Category category);
-        void Delete(Category category);
-        void Update(Category category);
-        List<Category> GetAll();
-        Category GetById(int id);
         IQueryable<Category> GetAllCategoriesWithProduct(int id);
 
     }

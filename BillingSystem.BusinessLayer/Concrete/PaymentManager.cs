@@ -12,6 +12,12 @@ namespace BillingSystem.BusinessLayer.Concrete
     public class PaymentManager : IPaymentService
     {
         private readonly IPaymentDal _paymentDal;
+
+        public PaymentManager(IPaymentDal paymentDal)
+        {
+            _paymentDal = paymentDal;
+        }
+
         public void Add(Payment payment)
         {
             _paymentDal.Add(payment);

@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface IPaymentService
+    public interface IPaymentService : IGenericServices<Payment>
     {
-        void Add(Payment payment);
-        void Delete(Payment payment);
-        void Update(Payment payment);
-        List<Payment> GetAll();
-        Payment GetById(int id);
     }
 }

@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface IProductService
+    public interface IProductService : IGenericServices<Product>
     {
-        void Add(Product product);
-        void Delete(Product product);
-        void Update(Product product);
-        List<Product> GetAll();
         List<Product> GetByCondition(Func<Product, bool> predicate);
         List<Product> GetAllProductsWithCategory();
-        Product GetById(int id);
     }
 }

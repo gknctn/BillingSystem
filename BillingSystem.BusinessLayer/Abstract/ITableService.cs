@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface ITableService
+    public interface ITableService : IGenericServices<Table>
     {
-        void Add(Table table);
-        void Delete(Table table);
-        void Update(Table table);
-        List<Table> GetAll();
-        Table GetById(int id);
     }
 }

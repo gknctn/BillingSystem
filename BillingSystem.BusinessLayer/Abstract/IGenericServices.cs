@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.BusinessLayer.Abstract
 {
-    public interface IUserService : IGenericServices<User>
-    { 
+    public interface IGenericServices<T>
+    {
+        void Add(T t);
+        void Delete(T t);
+        void Update(T t);
+        List<T> GetAll();
+        T GetById(int id);
     }
 }

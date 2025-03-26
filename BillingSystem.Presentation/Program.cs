@@ -23,8 +23,8 @@ builder.Services.AddScoped<IOrderService, OrderManager>();
 builder.Services.AddScoped<IOrderItemService, OrderItemManager>();
 builder.Services.AddScoped<IPaymentService, PaymentManager>();
 
-
 // IProductDal ve IProductDal implementasyonlarýný kaydediyoruz.
+
 builder.Services.AddScoped<IProductDal, EfProductRepository>(); // IProductDal'ý EfProductRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<IUserDal, EfUserRepository>(); // IUserDal'ý EfUserRepository ile iliþkilendiriyoruz.
 builder.Services.AddScoped<ICategoryDal, EfCategoryRepository>(); // ICategoryDal'ý EfCategoryRepository ile iliþkilendiriyoruz.
