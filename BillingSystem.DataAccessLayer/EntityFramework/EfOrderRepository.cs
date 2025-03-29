@@ -17,7 +17,7 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
         {
             using (var context = new Context())
             {
-                return context.Orders.Where(x => x.TableId.Equals(id))
+                return context.Orders.Where(x => x.TableId.Equals(id)).Where(y => y.IsPaid.Equals(false))
                     .OrderByDescending(o => o.OrderDate) // En yeni sipariş en üstte
                     .FirstOrDefault(); // İlk öğeyi al;
             }

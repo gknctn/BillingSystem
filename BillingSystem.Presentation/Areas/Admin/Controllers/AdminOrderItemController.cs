@@ -25,14 +25,13 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         }
         public IActionResult CreateOrderItem(int id)
         {
-            var order = _orderService.GetAll().Where(x => x.TableId.Equals(id)).Select(x => x.OrderId).LastOrDefault();
-            if (order == 0)
+            var order = _orderService.GetOrderForTableId(id);
+            if (order is null)
             {
-                // Handle the case when no matching orders are found
-                return NotFound("No orders found for the specified TableId.");
+                TempData["Message"] = "Masanın aktif siparişi bulunmamaktadır.";
+                return RedirectToAction("index", "AdminTable");
             }
-
-            ViewBag.OrderId = _orderService.GetById(order).OrderId;
+            ViewBag.OrderId = _orderService.GetById(order.OrderId).OrderId;
             List<Product> Values = _productService.GetAll().ToList();
             ViewData["Products"] = Values.Select(c => new SelectListItem
             {
@@ -45,7 +44,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         public IActionResult CreateOrderItem(OrderItem orderItem)
         {
             _orderItemService.Add(orderItem);
-            return RedirectToAction("Index","AdminTable");
+            return RedirectToAction("Index", "AdminTable");
         }
     }
 }

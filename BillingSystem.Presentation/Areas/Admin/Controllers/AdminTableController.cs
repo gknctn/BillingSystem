@@ -40,6 +40,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         {
             try
             {
+                table.IsOccupied = false;
                 _tableService.Add(table);
                 return RedirectToAction(nameof(Index));
             }

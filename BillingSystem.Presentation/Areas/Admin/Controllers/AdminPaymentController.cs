@@ -10,11 +10,13 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IPaymentService _paymentService;
+        private readonly ITableService _tableService;
 
-        public AdminPaymentController(IOrderService orderService, IPaymentService paymentService)
+        public AdminPaymentController(IOrderService orderService, IPaymentService paymentService, ITableService tableService)
         {
             _orderService = orderService;
             _paymentService = paymentService;
+            _tableService = tableService;
         }
 
         public IActionResult Index()
@@ -25,6 +27,21 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         public IActionResult PayOrder(int id)
         {
             Order value = _orderService.GetOrderForTableId(id);
+            if (value == null)
+            {
+                TempData["Message"] = "Masanın aktif siparişi bulunmamaktadır.";
+                return RedirectToAction("index", "AdminTable");
+            }
+
+            // Masa dolu olacak şekilde güncelleme yapılır.
+            Table tableValue = _tableService.GetById(id);
+            tableValue.IsOccupied = false;
+            _tableService.Update(tableValue);
+
+            // Ödeme bilgisi ödendi olarak güncellenir.
+            value.IsPaid = true;
+            _orderService.Update(value);
+
             ViewBag.OrderId = value.OrderId;
             return View();
         }

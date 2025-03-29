@@ -33,13 +33,13 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
             if (order.OrderId is 0)
             {
                 Table TableValue = _tableService.GetById(order.TableId);
-                TableValue.IsOccupied = false;
+                TableValue.IsOccupied = true;
                 _tableService.Update(TableValue);
                 _orderService.Add(order);
                 return RedirectToAction("Index", "AdminTable");
             }
 
-            Order? value = _orderService.GetAll().Where(x => x.TableId.Equals(order.TableId)).Last();
+            Order? value = _orderService.GetAll().Where(z => z.IsPaid.Equals(false)).Where(x => x.TableId.Equals(order.TableId)).Last();
 
             if (value is not null)
             {
@@ -55,9 +55,11 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         public IActionResult ListOrder(int id)
         {
             Order value = _orderService.GetOrderForTableId(id);
+
             if (value == null)
             {
-                return RedirectToAction("index", "AdminTable");
+                TempData["Message"] = "Masanın aktif siparişi bulunmamaktadır.";
+                return RedirectToAction("Index", "AdminTable");
             }
 
             try
@@ -67,7 +69,7 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("index", "AdminTable");
+                return RedirectToAction("Index", "AdminTable");
             }
         }
 

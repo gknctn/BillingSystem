@@ -6,6 +6,13 @@
 }
 <div class="container">
     <h1 class="text-center">Tables</h1>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <div class="row">
         @foreach (var item in Model)
         {
@@ -14,13 +21,13 @@
                     <div class="card-body">
                         <h2 class="text-center">@item.TableName</h2>
                         <h5 class="card-title text-center mb-4">
-                            @if (item.IsOccupied.Equals(true))
+                            @if (item.IsOccupied.Equals(false))
                             {
-                                <span class="badge text-bg-success">Free</span>
+                                <span class="badge text-bg-success p-3">Boş</span>
                             }
                             else
                             {
-                                <span class="badge text-bg-danger">Busy</span>
+                                <span class="badge text-bg-danger p-3">Dolu</span>
                             }
                         </h5>
                         <div class="text-center fs-5">

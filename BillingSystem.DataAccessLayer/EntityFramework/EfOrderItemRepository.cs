@@ -17,7 +17,7 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
         {
             using (var context = new Context())
             {
-                return context.OrderItems.Where(x=>x.OrderId.Equals(id)).Include(y=>y.Product).Include(z=>z.Order   ).ToList();
+                return context.OrderItems.Where(x=>x.OrderId.Equals(id)).Include(y=>y.Product).Include(z=>z.Order).ToList();
             }
         }
     }
