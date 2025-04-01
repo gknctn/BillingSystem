@@ -1,10 +1,17 @@
 using BillingSystem.BusinessLayer.Abstract;
 using BillingSystem.BusinessLayer.Concrete;
 using BillingSystem.DataAccessLayer.Abstract;
+using BillingSystem.DataAccessLayer.Concrete;
 using BillingSystem.DataAccessLayer.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<Context>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // Set the culture to ensure correct decimal formatting
 var cultureInfo = new CultureInfo("en-US");

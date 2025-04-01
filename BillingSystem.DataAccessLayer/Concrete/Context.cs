@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 
 namespace BillingSystem.DataAccessLayer.Concrete
 {
-    public class Context : IdentityDbContext<AppUser,AppRole,int>
+    public class Context : IdentityDbContext<AppUser, AppRole, int>
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public Context(DbContextOptions options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=DEVELOP\\   SQLEXPRESS;Database=BillingSystemDb;TrustServerCertificate=True;Integrated Security=True;");
         }
+
+        protected Context()
+        {
+        }
+
         public DbSet<Table> Tables { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }

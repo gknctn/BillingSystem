@@ -13,11 +13,17 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
 {
     public class EfOrderItemRepository : GenericRepository<OrderItem>, IOrderItemDal
     {
+        private readonly Context _context;
+
+        public EfOrderItemRepository(Context context) : base(context)
+        {
+            _context = context;
+        }
+
         public List<OrderItem> GetOrderItemForOrderId(int id)
         {
-            using (var context = new Context())
             {
-                return context.OrderItems.Where(x=>x.OrderId.Equals(id)).Include(y=>y.Product).Include(z=>z.Order).ToList();
+                return _context.OrderItems.Where(x => x.OrderId.Equals(id)).Include(y => y.Product).Include(z => z.Order).ToList();
             }
         }
     }

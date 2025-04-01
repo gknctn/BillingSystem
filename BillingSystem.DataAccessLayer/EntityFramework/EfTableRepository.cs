@@ -1,4 +1,5 @@
 ﻿using BillingSystem.DataAccessLayer.Abstract;
+using BillingSystem.DataAccessLayer.Concrete;
 using BillingSystem.DataAccessLayer.Repository;
 using BillingSystem.EntityLayer.Concrete;
 using System;
@@ -11,5 +12,8 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
 {
     public class EfTableRepository : GenericRepository<Table>, ITableDal
     {
+        public EfTableRepository(Context context) : base(context)
+        {
+        }
     }
 }

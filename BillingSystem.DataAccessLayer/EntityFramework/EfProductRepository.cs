@@ -13,12 +13,16 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
 {
     public class EfProductRepository : GenericRepository<Product>, IProductDal
     {
+        private readonly Context _context;
+
+        public EfProductRepository(Context context) : base(context)
+        {
+            _context = context;
+        }
+
         public List<Product> GetAllProductsWithCategory()
         {
-            using (var context = new Context())
-            {
-                return context.Products.Include(p => p.Category).ToList();
-            }
+            return _context.Products.Include(p => p.Category).ToList();
         }
     }
 }

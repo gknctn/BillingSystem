@@ -11,43 +11,46 @@ namespace BillingSystem.DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
+        private readonly Context _context;
+
+        public GenericRepository(Context context)
+        {
+            _context = context;
+        }
+
         public void Add(T entity)
         {
-            using var c = new Context();
-            c.Add(entity);
-            c.SaveChanges();
+
+            _context.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            using var c = new Context();
-            c.Remove(entity);
-            c.SaveChanges();
+            _context.Remove(entity);
+            _context.SaveChanges();
         }
 
         public List<T> GetAll()
         {
-            using var c = new Context();
-            return c.Set<T>().ToList();
+
+            return _context.Set<T>().ToList();
         }
 
         public List<T> GetByCondition(Func<T, bool> predicate)
         {
-            using var c = new Context();
-            return c.Set<T>().Where(predicate).ToList();
+            return _context.Set<T>().Where(predicate).ToList();
         }
 
         public T GetById(int id)
         {
-            using var c = new Context();
-            return c.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
         }
 
         public void Update(T entity)
         {
-            using var c = new Context();
-            c.Update(entity);
-            c.SaveChanges();
+            _context.Update(entity);
+            _context.SaveChanges();
         }
 
     }

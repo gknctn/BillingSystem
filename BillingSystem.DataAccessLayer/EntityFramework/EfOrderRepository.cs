@@ -13,16 +13,20 @@ namespace BillingSystem.DataAccessLayer.EntityFramework
 {
     public class EfOrderRepository : GenericRepository<Order>, IOrderDal
     {
+        private readonly Context _context;
+
+        public EfOrderRepository(Context context) : base(context)
+        {
+            _context = context;
+        }
+
         public Order GetOrderForTableId(int id)
         {
-            using (var context = new Context())
-            {
-                return context.Orders
-                    .Where(x => x.TableId.Equals(id))
-                    .Where(y => y.IsPaid.Equals(false))
-                    .OrderByDescending(o => o.OrderDate) // En yeni sipariş en üstte
-                    .FirstOrDefault(); // İlk öğeyi al;
-            }
+            return _context.Orders
+                .Where(x => x.TableId.Equals(id))
+                .Where(y => y.IsPaid.Equals(false))
+                .OrderByDescending(o => o.OrderDate) // En yeni sipariş en üstte
+                .FirstOrDefault(); // İlk öğeyi al;
         }
     }
 }
