@@ -13,7 +13,7 @@ namespace BillingSystem.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-23JQ141\\SQLEXPRESS;Database=BillingSystemDb;TrustServerCertificate=True;;Integrated Security=True;");
+            optionsBuilder.UseSqlServer("Server=DEVELOP\\   SQLEXPRESS;Database=BillingSystemDb;TrustServerCertificate=True;Integrated Security=True;");
         }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Order> Orders { get; set; }

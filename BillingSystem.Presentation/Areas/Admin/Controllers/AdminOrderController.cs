@@ -24,8 +24,14 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult CreateOrder(int id)
         {
-            ViewBag.TableId = id;
-            return View();
+            Order value = _orderService.GetOrderForTableId(id);
+            if (value is null)
+            {
+                ViewBag.TableId = id;
+                return View();
+            }
+            TempData["Message"] = "Masanın aktif siparişi bulunmaktadır.";
+            return RedirectToAction("index", "AdminTable");
         }
         [HttpPost]
         public IActionResult CreateOrder(Order order)

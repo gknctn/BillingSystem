@@ -2,6 +2,7 @@
 using BillingSystem.BusinessLayer.Concrete;
 using BillingSystem.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace BillingSystem.Presentation.Areas.Admin.Controllers
 {
@@ -33,23 +34,30 @@ namespace BillingSystem.Presentation.Areas.Admin.Controllers
                 return RedirectToAction("index", "AdminTable");
             }
 
-            // Masa dolu olacak şekilde güncelleme yapılır.
-            Table tableValue = _tableService.GetById(id);
-            tableValue.IsOccupied = false;
-            _tableService.Update(tableValue);
-
-            // Ödeme bilgisi ödendi olarak güncellenir.
-            value.IsPaid = true;
-            _orderService.Update(value);
-
             ViewBag.OrderId = value.OrderId;
+            ViewBag.TableId = id;
             return View();
         }
         [HttpPost]
         public IActionResult PayOrder(Payment payment)
         {
+            Order orderValue = _orderService.GetById(payment.OrderId);
+            // Sipariş bilgisi, ödeme yapılan siparişin masa ID'sine göre alınır.
+            Order value = _orderService.GetOrderForTableId(orderValue.TableId);
+
+            // Masa boş olacak şekilde güncelleme yapılır.
+            Table tableValue = _tableService.GetById(value.TableId);
+            tableValue.IsOccupied = false;
+            _tableService.Update(tableValue);
+
+
+            // Sipariş bilgisi ödendi olarak güncellenir.
+            value.IsPaid = true;
+            _orderService.Update(value);
+
+            // Ödeme bilgisi eklenir.
             _paymentService.Add(payment);
-            //_orderService.Delete(_orderService.GetById(payment.OrderId));
+            // İşlem tamamlandıktan sonra AdminTable sayfasına yönlendirilir.
             return RedirectToAction("index", "AdminTable");
         }
     }
