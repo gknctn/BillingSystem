@@ -4,9 +4,11 @@ using BillingSystem.Presentation.Models;
 using BillingSystem.BusinessLayer.Abstract;
 using BillingSystem.EntityLayer.Concrete;
 using BillingSystem.Presentation.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillingSystem.Presentation.Controllers;
 
+[AllowAnonymous]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
